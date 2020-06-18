@@ -78,5 +78,74 @@ function theLogic() {
         computerWord = new Word(randomWord);
 
         requireNewWord = false;
+}
 
-    }
+var wordComplete = [];
+
+    if (wordComplete.includes(false)) {
+        inquirer.prompt([
+            {
+              type: "input",
+              message: "Guess a letter between A-Z!",
+              name: "userinput"
+            }
+    ])
+    .then(function(input){
+        if (
+            !letterArray.includes(input.userinput) || 
+            input.userinput.length > 1
+            ) {
+            console.log("\nPlease try again!\n");
+            theLogic();
+        } else {
+            if (
+              incorrectLetters.includes(input.userinput) || 
+              correctLetters.includes(input.userinput) || 
+              input.userinput === ""
+        ) {
+            console.log("\nAlready Guessed or Nothing Entered\n");
+            theLogic();
+        
+        }else {
+            var wordCheckArray = [];
+
+            computerWord.userGuess(input.userinput);
+
+            computerWord.objArray.forEach(wordCheck);
+            if (wordCheckArray.join("") === wordComplete.join("")) {
+                console.log("\nIncorrect\n");
+               
+                incorrectLetters.push(input.userinput);
+                guessesLeft--;
+            } else {
+                console.log("\nCorrect!\n");
+               
+                correctLetters.push(input.userinput);
+            }
+            computerWord.log();
+
+            console.log("Guesses Left: " + guessesLeft + "\n");
+    
+            console.log("Letters Guessed: " + incorrectLetters.join(" ") + "\n");
+            
+            if (guessesLeft > 0) {
+                theLogic();
+            }else {
+                console.log("You have lost!\n");
+            }
+            function wordCheck(key) {
+                wordCheckArray.push(key.guessed);
+            }
+          }  
+        }
+    });
+  } else {
+    console.log("YOU WIN!\n");
+  }
+    function completeCheck(key) {
+      wordComplete.push(key.guessed);   
+  }
+}
+
+
+
