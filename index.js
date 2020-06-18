@@ -1,7 +1,6 @@
 //Creating require connection//
 var word = require("./Word.js");
 var inquirer = require("inquirer");
-//Creating Logic //
 //Array for letters//
 var letterArray = "abcdefghijklmnopqrstuvwxyz";
 //Array that is gonna hold the words that are been guess//
@@ -56,4 +55,28 @@ var UnitedState = [
 "West Virginia", 
 "Wisconsin", 
 "Wyoming" 
+
 ];
+//Create random loop//
+var randomIndex = Math.floor(Math.random() * UnitedStates.length);
+//Create random word variable that is created from united states randomIndex//
+var randomWord = UnitedState[randomIndex];
+// Making computer word construct that creates a random word//
+var computerWord = new Word(randomWord);
+
+var requireNewWord = false;
+var incorrectLetter = [];
+var correctLetter = [];
+
+var guessesLeft = 10;
+//Creating logic fuction//
+function theLogic() {
+    if(requireNewWord) {
+        var randomIndex = Math.floor(Math.random() * UnitedStates.length);
+        var randomWord = UnitedState[randomIndex];
+
+        computerWord = new Word(randomWord);
+
+        requireNewWord = false;
+
+    }
